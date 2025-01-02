@@ -19,11 +19,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '15.x' # Versão compatível com sua aplicação
+          node-version: '15.x' # Versão compatível com o projeto
           cache: 'npm'
+
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '15.x' # Versão compatível com sua aplicação
+      #     cache: 'npm'
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install prettier
+        run: npm install prettier --save-dev
 
       - name: Run linter
         run: npm run lint
