@@ -2,38 +2,32 @@ name: CI Pipeline
 
 on:
   pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
 
 jobs:
   build:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '15.x' # Versão compatível com sua aplicação
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run Linter
-      run: npm run lint
+      - name: Run linter
+        run: npm run lint
 
-    - name: Run Formatter
-      run: npm run prettier
+      - name: Run formatter
+        run: npm run prettier
 
-    - name: Run Tests
-      env:
-        CI: true
-      run: npm run test
+      - name: Run tests
+        run: CI=true npm run test
 
-    - name: Build
-      run: npm run build
+      - name: Build application
+        run: npm run build
